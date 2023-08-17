@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.examen.forge.app.application.services.TableService;
@@ -34,7 +35,6 @@ public class WaiterController {
     WaiterEntity waiter = waiterService.getById(waiterId);
     List<TableEntity> tableByWaiter = tableService.getByWaiter(waiter);
 
-    List<TableEntity> tables = tableService.getAll();
     model.addAttribute("tables", tableByWaiter);
 
     if (waiterId != null) {
@@ -43,6 +43,32 @@ public class WaiterController {
     }
 
     return AppConfig.JSP_HOME;
+  }
+
+  // Otras mesas
+  @GetMapping({ AppConfig.ROUTE_OTHER_TABLE })
+  public String pageOthers(HttpSession session, Model model) {
+    Long waiterId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
+    List<TableEntity> availableTables = tableService.getAvailableTables();
+
+    model.addAttribute("tables", availableTables);
+
+    if (waiterId != null) {
+      WaiterEntity user = waiterService.getById(waiterId);
+      model.addAttribute(AppConfig.MA_USER, user);
+    }
+
+    return AppConfig.JSP_OTHER_TABLE;
+  }
+
+  @PostMapping({ AppConfig.ROUTE_INDEX_TABLE + "/{id}/assign" })
+  public String assignTable(@PathVariable Long id, HttpSession session) {
+    Long waiterId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
+    WaiterEntity loggedInWaiter = (WaiterEntity) waiterService.getById(waiterId) ;
+    if (loggedInWaiter != null) {
+      tableService.assignTableToWaiter(id, loggedInWaiter);
+    }
+    return "redirect:/" + AppConfig.ROUTE_HOME;
   }
 
   // Registro de usuario

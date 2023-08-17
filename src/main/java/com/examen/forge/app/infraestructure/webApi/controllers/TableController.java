@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -106,7 +105,7 @@ public class TableController {
 
   @PostMapping({ AppConfig.POST_INDEX_TABLE + "/{id}/edit" })
   public String songUpdate(
-      @Valid @PathVariable Long id, @ModelAttribute(AppConfig.MA_TABLE) TableEntity updatedSong,
+      @Valid @PathVariable Long id, @ModelAttribute(AppConfig.MA_TABLE) TableEntity updatedTable,
       HttpSession session, BindingResult result, Model model) {
 
     if (result.hasErrors()) {
@@ -114,12 +113,10 @@ public class TableController {
     }
 
     TableEntity table = tableService.getById(id);
-    Long waiterId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
-
     if (table != null) {
-      table.setName(table.getName());
-      table.setNumber(updatedSong.getNumber());
-      table.setNotes(updatedSong.getNotes());
+      table.setName(updatedTable.getName());
+      table.setNumber(updatedTable.getNumber());
+      table.setNotes(updatedTable.getNotes());
       tableService.create(table);
     }
 

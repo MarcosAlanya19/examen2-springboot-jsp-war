@@ -37,4 +37,18 @@ public class TableService extends BaseService<TableEntity> {
       }
     }
   }
+
+  public List<TableEntity> getAvailableTables() {
+    return tableRepository.findByWaiterIsNull();
+  }
+
+  public void assignTableToWaiter(Long tableId, WaiterEntity waiter) {
+    Optional<TableEntity> tableOptional = tableRepository.findById(tableId);
+
+    if (tableOptional.isPresent()) {
+      TableEntity table = tableOptional.get();
+      table.setWaiter(waiter);
+      tableRepository.save(table);
+    }
+  }
 }

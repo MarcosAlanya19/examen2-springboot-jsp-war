@@ -10,6 +10,7 @@ public class AppConfig {
   public static final String ROUTE_LOGOUT_USER = "logout";
   public static final String ROUTE_REGISTRATION = "registration";
   public static final String ROUTE_ADD_TABLE = "table/new";
+  public static final String ROUTE_OTHER_TABLE = "table/other";
 
   /* ------------------------------ Archivos JSP ----------------------------- */
   public static final String JSP_LOGIN = "index.jsp";
@@ -19,6 +20,7 @@ public class AppConfig {
   public static final String JSP_ADD_TABLE = "new-table-page.jsp";
   public static final String JSP_EDIT_TABLE = "edit-table-page.jsp";
   public static final String JSP_DETAIL_SONG = "detail-song-page.jsp";
+  public static final String JSP_OTHER_TABLE = "others-table-page.jsp";
 
   /* ----------------------------- Creacion POST ----------------------------- */
   /* USER */
