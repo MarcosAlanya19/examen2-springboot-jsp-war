@@ -55,11 +55,6 @@ contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
       <button type="submit" class="btn btn-primary">Actualizar cación</button>
     </form:form>
-
-    <c:if test="${isCreator}">
-      <button type="button" onclick="deleteSong()" class="btn btn-danger mt-3">Eliminar canción</button>
-    </c:if>
-
     <form
       id="deleteForm"
       method="POST"

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -126,24 +127,9 @@ public class TableController {
   }
 
   // Eliminar cancion
-  // @PostMapping({ AppConfig.POST_INDEX_SONG + "/{id}/delete" })
-  // public String songDelete(
-  // @PathVariable Long id, HttpSession session) {
-  // TableEntity song = songService.getById(id);
-  // Long userId = (Long) session.getAttribute(AppConfig.SESSION_USER);
-
-  // if (userId != null) {
-  // boolean isCreator = userId != null && userId == song.getCreator().getId();
-
-  // if (isCreator) {
-  // songService.deleteById(id);
-  // return "redirect:/" + AppConfig.ROUTE_HOME;
-  // }
-
-  // return "redirect:/" + AppConfig.ROUTE_INDEX_SONG + "/" + id + "/edit";
-
-  // } else {
-  // return "redirect:/";
-  // }
-  // }
+  @PostMapping({ AppConfig.POST_INDEX_TABLE + "/{id}/delete" })
+  public String releaseAndDeleteWaiter(@PathVariable Long id) {
+    tableService.releaseTable(id);
+    return "redirect:/" + AppConfig.ROUTE_HOME;
+  }
 }

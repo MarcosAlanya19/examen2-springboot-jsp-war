@@ -49,7 +49,9 @@ import="com.examen.forge.config.AppConfig" %>
                 <td><c:out value="${t.notes}" /></td>
                 <td>
                   <a class="btn btn-primary" href="${AppConfig.ROUTE_INDEX_TABLE}/${t.id}/edit">Edicion</a>
-                  <a class="btn btn-primary" href="">Liberar mesa</a>
+                  <form action="${AppConfig.ROUTE_INDEX_TABLE}/${t.id}/delete" method="post">
+                    <button type="submit" class="btn btn-primary">Liberar mesa</button>
+                </form>
                 </td>
               </tr>
             </c:forEach>
