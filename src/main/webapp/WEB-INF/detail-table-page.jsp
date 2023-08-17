@@ -14,25 +14,17 @@
   <div class="container mt-5">
     <div class="card">
       <div class="card-body">
-        <h1 class="card-title text-center mb-4"><strong><c:out value="${song.title.toUpperCase()}" /></strong></h1>
-        <h4 class="card-subtitle text-muted mb-3">Creado por <c:out value="${creator.name}" /></h4>
-        <p class="card-text"><strong>Género:</strong> <c:out value="${song.genre}" /></p>
-        <p class="card-text"><strong>Letra:</strong></p>
-        <pre class="card-text"><c:out value="${song.lyrics}" /></pre>
-
-
-        <h3 class="mt-4">Contribuyentes:</h3>
-        <ul class="list-group">
-          <c:forEach items="${song.users}" var="userSong">
-            <li class="list-group-item"><c:out value="${userSong.user.name}" /> - <c:out value="${userSong.count}" /></li>
-          </c:forEach>
-        </ul>
-
+        <h1 class="card-title text-center mb-4"><strong><c:out value="${table.name.toUpperCase()}" /></strong></h1>
+        <h4 class="card-subtitle text-muted mb-3">
+          Mesa de : <c:choose>
+            <c:when test="${empty table.waiter.name}">DISPONIBLE</c:when>
+            <c:otherwise><c:out value="${table.waiter.name}" /></c:otherwise>
+          </c:choose>
+        </h4>
+        <p class="card-text"><strong>Notas:</strong> <c:out value="${table.notes}" /></p>
+        <p class="card-text"><strong>Numero de invitados:</strong> <c:out value="${table.number}" /></p>
         <div class="mt-4 d-flex justify-content-between">
           <a href="/${AppConfig.ROUTE_HOME}" class="btn btn-outline-primary">Regresar a inicio</a>
-          <c:if test="${isRegistration}">
-            <a href="/${AppConfig.ROUTE_INDEX_TABLE}/${song.id}/edit" class="btn btn-primary">Contribuir</a>
-          </c:if>
         </div>
       </div>
     </div>

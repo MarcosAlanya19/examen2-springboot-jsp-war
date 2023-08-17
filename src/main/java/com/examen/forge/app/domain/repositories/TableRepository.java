@@ -8,7 +8,7 @@ import com.examen.forge.app.infraestructure.shared.BaseRepository;
 
 
 public interface TableRepository extends BaseRepository<TableEntity> {
+  TableEntity findByName(String name);
   List<TableEntity> findByWaiter(WaiterEntity waiter);
   List<TableEntity> findByWaiterIsNull();
-
 }

@@ -51,4 +51,8 @@ public class TableService extends BaseService<TableEntity> {
       tableRepository.save(table);
     }
   }
+
+  public TableEntity getByName(String name) {
+    return tableRepository.findByName(name);
+  }
 }

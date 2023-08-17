@@ -31,6 +31,13 @@ public class WaiterController {
   // Redireccion a home
   @GetMapping({ AppConfig.ROUTE_HOME })
   public String pageHome(HttpSession session, Model model) {
+    Long userId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
+    boolean isRegistration = userId != null;
+
+    if (!isRegistration) {
+      return "redirect:/";
+    }
+
     Long waiterId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
     WaiterEntity waiter = waiterService.getById(waiterId);
     List<TableEntity> tableByWaiter = tableService.getByWaiter(waiter);
@@ -48,6 +55,13 @@ public class WaiterController {
   // Otras mesas
   @GetMapping({ AppConfig.ROUTE_OTHER_TABLE })
   public String pageOthers(HttpSession session, Model model) {
+    Long userId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
+    boolean isRegistration = userId != null;
+
+    if (!isRegistration) {
+      return "redirect:/";
+    }
+
     Long waiterId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
     List<TableEntity> availableTables = tableService.getAvailableTables();
 
@@ -64,7 +78,7 @@ public class WaiterController {
   @PostMapping({ AppConfig.ROUTE_INDEX_TABLE + "/{id}/assign" })
   public String assignTable(@PathVariable Long id, HttpSession session) {
     Long waiterId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
-    WaiterEntity loggedInWaiter = (WaiterEntity) waiterService.getById(waiterId) ;
+    WaiterEntity loggedInWaiter = (WaiterEntity) waiterService.getById(waiterId);
     if (loggedInWaiter != null) {
       tableService.assignTableToWaiter(id, loggedInWaiter);
     }

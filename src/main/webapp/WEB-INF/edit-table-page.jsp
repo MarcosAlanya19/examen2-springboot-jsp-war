@@ -14,7 +14,9 @@ contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 </head>
 <body>
   <div class="container mt-5">
-    <h1 class="display-4">Contribución</h1>
+    <a href="/${AppConfig.ROUTE_LOGOUT_USER}" class="btn btn-outline-primary">Logout</a>
+
+    <h1 class="display-4">Edicion de mesa:</h1>
 
     <form:form
       method="POST"
@@ -25,7 +27,7 @@ contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
         <div class="mb-3">
           <form:label path="name">Nombre:</form:label>
           <form:input type="text" path="name" class="form-control" />
-          <form:errors path="name" cssClass="error" />
+          <form:errors path="name" class="text-danger" />
           <c:if test="${not empty errorMessage}">
             <p style="color: red">${errorMessage}</p>
           </c:if>
@@ -34,37 +36,24 @@ contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
         <div class="mb-3">
           <form:label path="number">Numero:</form:label>
           <form:select path="number" class="form-select">
-            <form:option value="1">1</form:option>
-            <form:option value="2">2</form:option>
-            <form:option value="3">3</form:option>
-            <form:option value="4">5</form:option>
-            <form:option value="4">6</form:option>
-            <form:option value="4">7</form:option>
-            <form:option value="4">8</form:option>
-            <form:option value="4">9</form:option>
-            <form:option value="4">10</form:option>
+            <c:forEach var="i" begin="1" end="10">
+              <form:option value="${i}">${i}</form:option>
+            </c:forEach>
           </form:select>
-          <form:errors path="number" cssClass="error" />
+          <form:errors path="number" class="text-danger" />
         </div>
 
         <div class="mb-3">
           <form:label path="notes">Notas:</form:label>
           <form:input type="text" path="notes" class="form-control" />
-          <form:errors path="notes" cssClass="error" />
+          <form:errors path="notes" class="text-danger" />
         </div>
 
       <button type="submit" class="btn btn-primary">Actualizar cación</button>
     </form:form>
-    <form
-      id="deleteForm"
-      method="POST"
-      action="${pageContext.request.contextPath}/${AppConfig.POST_INDEX_TABLE}/${song.id}/delete"
-    >
-      <input type="hidden" name="_method" value="DELETE" />
-    </form>
 
     <a
-      href="${pageContext.request.contextPath}/${AppConfig.ROUTE_INDEX_TABLE}/${song.id}/detail"
+      href="${pageContext.request.contextPath}/${AppConfig.ROUTE_HOME}"
       class="btn btn-secondary mt-3"
     >
       Cancelar

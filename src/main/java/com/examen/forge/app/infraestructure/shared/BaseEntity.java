@@ -23,11 +23,11 @@ public abstract class BaseEntity {
   protected Long id;
 
   @Column(updatable = false, name = "created_at")
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @DateTimeFormat(pattern = "MMMM d HH:mm")
   protected Date createdAt;
 
   @Column(name = "updated_at")
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @DateTimeFormat(pattern = "MMMM d HH:mm")
   protected Date updatedAt;
 
   @PrePersist
