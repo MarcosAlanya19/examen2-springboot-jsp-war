@@ -48,7 +48,7 @@ import="com.examen.forge.config.AppConfig" %>
                 <td><c:out value="${t.number}" /></td>
                 <td><c:out value="${t.notes}" /></td>
                 <td>
-                  <a class="btn btn-primary" href="${AppConfig.ROUTE_INDEX_SONG}/${t.id}/edit">Edicion</a>
+                  <a class="btn btn-primary" href="${AppConfig.ROUTE_INDEX_TABLE}/${t.id}/edit">Edicion</a>
                   <a class="btn btn-primary" href="">Liberar mesa</a>
                 </td>
               </tr>

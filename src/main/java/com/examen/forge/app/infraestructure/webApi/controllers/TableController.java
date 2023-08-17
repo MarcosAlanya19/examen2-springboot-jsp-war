@@ -21,10 +21,10 @@ import jakarta.validation.Valid;
 @Controller
 public class TableController {
   @Autowired
-  TableService songService;
+  TableService tableService;
 
   @Autowired
-  WaiterService userService;
+  WaiterService waiterService;
 
   // Registro de mesa
   @GetMapping({ AppConfig.ROUTE_ADD_TABLE })
@@ -52,11 +52,11 @@ public class TableController {
     // }
 
     Long userId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
-    WaiterEntity user = userService.getById(userId);
+    WaiterEntity user = waiterService.getById(userId);
 
     if (user != null) {
       table.setWaiter(user);
-      songService.create(table);
+      tableService.create(table);
     }
     return "redirect:/" + AppConfig.ROUTE_HOME;
   }
@@ -86,67 +86,44 @@ public class TableController {
   // }
 
   // Editar mesa
-  @GetMapping({ AppConfig.ROUTE_INDEX_SONG + "/{id}/edit" })
+  @GetMapping({ AppConfig.ROUTE_INDEX_TABLE + "/{id}/edit" })
   public String editSong(
       @PathVariable Long id, Model model, HttpSession session) {
-    TableEntity song = songService.getById(id);
-    model.addAttribute(AppConfig.MA_TABLE, song);
+    TableEntity table = tableService.getById(id);
+    model.addAttribute(AppConfig.MA_TABLE, table);
     Long userId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
 
-    if (userId == null) {
+    boolean isCreator = userId != null && userId == table.getWaiter().getId();
+    model.addAttribute("isCreator", isCreator);
+
+    if (userId == null && !isCreator) {
       return "redirect:/";
     }
 
-    // if (song != null) {
-    // UserEntity user = song.getCreator();
-    // model.addAttribute(AppConfig.MA_USER, user);
-
-    // boolean isCreator = userId != null && userId == song.getCreator().getId();
-    // model.addAttribute("isCreator", isCreator);
-
-    // if (!isCreator) {
-    // model.addAttribute("lyrics", song.getLyrics());
-    // song.setLyrics("");
-    // }
-    // }
-
-    return AppConfig.JSP_EDIT_SONG;
+    return AppConfig.JSP_EDIT_TABLE;
   }
 
-  // @PostMapping({ AppConfig.POST_INDEX_SONG + "/{id}/edit" })
-  // public String songUpdate(
-  // @Valid @PathVariable Long id, @ModelAttribute(AppConfig.MA_TABLE) TableEntity
-  // updatedSong,
-  // HttpSession session, BindingResult result, Model model) {
+  @PostMapping({ AppConfig.POST_INDEX_TABLE + "/{id}/edit" })
+  public String songUpdate(
+      @Valid @PathVariable Long id, @ModelAttribute(AppConfig.MA_TABLE) TableEntity updatedSong,
+      HttpSession session, BindingResult result, Model model) {
 
-  // if (result.hasErrors()) {
-  // return AppConfig.ROUTE_INDEX_SONG + "/" + id + "/edit";
-  // }
+    if (result.hasErrors()) {
+      return AppConfig.ROUTE_INDEX_TABLE + "/" + id + "/edit";
+    }
 
-  // TableEntity song = songService.getById(id);
-  // Long userId = (Long) session.getAttribute(AppConfig.SESSION_USER);
+    TableEntity table = tableService.getById(id);
+    Long waiterId = (Long) session.getAttribute(AppConfig.SESSION_WAITER);
 
-  // if (song != null) {
-  // song.setCount(song.getCount() + 1);
-  // song.setTitle(updatedSong.getTitle());
-  // song.setGenre(updatedSong.getGenre());
+    if (table != null) {
+      table.setName(table.getName());
+      table.setNumber(updatedSong.getNumber());
+      table.setNotes(updatedSong.getNotes());
+      tableService.create(table);
+    }
 
-  // UserEntity user = userService.getById(userId);
-  // UserEntity songCreator = song.getCreator();
-
-  // if (user != null && user.equals(songCreator)) {
-  // song.setLyrics(updatedSong.getLyrics());
-  // } else if (updatedSong.getLyrics() != null) {
-  // String updatedLyrics = song.getLyrics() + " " + updatedSong.getLyrics();
-  // song.setLyrics(updatedLyrics.trim());
-  // }
-
-  // songService.create(song);
-  // userSongService.createUserSongRelation(user, song);
-  // }
-
-  // return "redirect:/" + AppConfig.ROUTE_INDEX_SONG + "/" + id + "/detail";
-  // }
+    return "redirect:/" + AppConfig.ROUTE_HOME;
+  }
 
   // Eliminar cancion
   // @PostMapping({ AppConfig.POST_INDEX_SONG + "/{id}/delete" })

@@ -31,7 +31,7 @@
         <div class="mt-4 d-flex justify-content-between">
           <a href="/${AppConfig.ROUTE_HOME}" class="btn btn-outline-primary">Regresar a inicio</a>
           <c:if test="${isRegistration}">
-            <a href="/${AppConfig.ROUTE_INDEX_SONG}/${song.id}/edit" class="btn btn-primary">Contribuir</a>
+            <a href="/${AppConfig.ROUTE_INDEX_TABLE}/${song.id}/edit" class="btn btn-primary">Contribuir</a>
           </c:if>
         </div>
       </div>

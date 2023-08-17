@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppConfig {
   /* ----------------------------- Rutas creadas ----------------------------- */
-  public static final String ROUTE_INDEX_SONG = "song";
+  public static final String ROUTE_INDEX_TABLE = "table";
   public static final String ROUTE_HOME = "home";
   public static final String ROUTE_LOGOUT_USER = "logout";
   public static final String ROUTE_REGISTRATION = "registration";
@@ -17,7 +17,7 @@ public class AppConfig {
   public static final String JSP_REGISTRATION = "new-waiter-page.jsp";
 
   public static final String JSP_ADD_TABLE = "new-table-page.jsp";
-  public static final String JSP_EDIT_SONG = "edit-song-page.jsp";
+  public static final String JSP_EDIT_TABLE = "edit-table-page.jsp";
   public static final String JSP_DETAIL_SONG = "detail-song-page.jsp";
 
   /* ----------------------------- Creacion POST ----------------------------- */
@@ -26,7 +26,7 @@ public class AppConfig {
   public static final String POST_CREATE_USER = "user/create";
 
   /* SONG */
-  public static final String POST_INDEX_SONG = "song";
+  public static final String POST_INDEX_TABLE = "table";
   public static final String POST_CREATE_TABLE = "table/new";
 
   /* ------------------------ ModelAttributes creados ------------------------ */
